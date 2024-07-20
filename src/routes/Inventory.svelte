@@ -4,13 +4,13 @@
 </script>
 
 <div class="inventory">
-    <p>{$poem + " ..."}</p>
+    <p>{$poem + ($poem.split("\n").at(-1) == "" ? "..." : " ...")}</p>
     <ul>
         {#each $inventory as item (item.id)}
             <InventoryItem {item} />
         {/each}
-        <li><button on:click={() => $poem += ", "}>(,)</button></li>
-        <li><button on:click={() => $poem += ". "}>(.)</button></li>
+        <li><button on:click={() => $poem += ","}>(,)</button></li>
+        <li><button on:click={() => $poem += "."}>(.)</button></li>
         <li><button on:click={() => $poem += "\n"}>(newline)</button></li>
     </ul>
 </div>
