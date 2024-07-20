@@ -4,11 +4,14 @@
 </script>
 
 <div class="inventory">
-    <p>{$poem.length != 0 ? $poem : "..."}</p>
+    <p>{$poem + " ..."}</p>
     <ul>
         {#each $inventory as item (item.id)}
             <InventoryItem {item} />
         {/each}
+        <li><button on:click={() => $poem += ", "}>(,)</button></li>
+        <li><button on:click={() => $poem += ". "}>(.)</button></li>
+        <li><button on:click={() => $poem += "\n"}>(newline)</button></li>
     </ul>
 </div>
 
@@ -17,5 +20,18 @@
     .inventory {
         overflow-y: auto;
         padding: 40px;
+    }
+
+    p {
+        white-space: pre;
+    }
+
+    button {
+        margin: 0;
+        padding: 0;
+        background: none;
+        border: none;
+        font-family: serif;
+        font-size: medium;
     }
 </style>

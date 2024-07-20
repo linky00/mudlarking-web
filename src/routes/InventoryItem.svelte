@@ -5,7 +5,7 @@
 
     function chosen() {
         $inventory = $inventory.filter((testItem) => testItem.id != item.id);
-        $poem += item.text + " ";
+        $poem += $poem.split("\n").at(-1) == "" ? item.text : " " + item.text;
     }
 </script>
 
