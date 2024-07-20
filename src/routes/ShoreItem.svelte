@@ -14,7 +14,7 @@
     }
 </script>
 
-<button on:click={collect} class:hidden={collected} >{item.text}</button>
+<button on:click={collect} class:hidden={collected} >{item.text.replaceAll(" ", "")}</button>
 
 <style>
     .hidden {
