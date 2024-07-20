@@ -1,4 +1,4 @@
-name: Build and deploy server
+name: Build and deploy web
 
 on:
   push:
@@ -28,3 +28,10 @@ jobs:
         remote_host: worldenddisk.com
         remote_user: ${{ secrets.SSH_USER }}
         remote_key: ${{ secrets.SSH_KEY }}
+    - name: Reload pm2
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: worldenddisk.com
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_KEY }}
+        script: pm2 restart mudlarking-web
