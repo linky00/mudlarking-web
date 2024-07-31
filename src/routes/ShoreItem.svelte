@@ -7,6 +7,7 @@
 
     let x = item.offset;
     let y = item.line * 16;
+    let text_squashed = item.text.replaceAll(" ", "");
 
     let collected = false;
 
@@ -14,7 +15,7 @@
         if (collected == false) {
             collected = true;
             $inventory = [...$inventory, item];
-            let textMetrics = context.measureText(item.text);
+            let textMetrics = context.measureText(text_squashed);
             context.clearRect(
                 x, 
                 y,
@@ -30,8 +31,8 @@
         context.textAlign = 'left';
         context.textBaseline = 'top';
         context.fillStyle = 'black';
-        context.fillText(item.text, x, y);
-        let textMetrics = context.measureText(item.text);
+        context.fillText(text_squashed, x, y);
+        let textMetrics = context.measureText(text_squashed);
         context.fillStyle = 'transparent';
         context.fillRect(
             x, 
