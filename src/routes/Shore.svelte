@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { Canvas } from 'svelte-canvas';
     import ShoreItem from './ShoreItem.svelte';
 
     export let shore: Shore;

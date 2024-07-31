@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { Layer, type Render } from 'svelte-canvas';
     import { inventory } from './stores';
 
     export let context: CanvasRenderingContext2D;
