@@ -31,7 +31,5 @@
         padding: 0;
         background: none;
         border: none;
-        font-family: serif;
-        font-size: medium;
     }
 </style>

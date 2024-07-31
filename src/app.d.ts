@@ -11,12 +11,12 @@ declare global {
 }
 
 interface Shore {
-	width: number;
-	height: number;
 	contents: Item[];
 }
 
 interface Item {
 	text: string;
+	line: number;
+	offset: number;
 	id: string;
 }

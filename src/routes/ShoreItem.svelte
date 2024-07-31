@@ -1,13 +1,13 @@
 <script lang="ts">
-    import { Canvas, Layer, type Render } from 'svelte-canvas';
+    import { Layer, type Render } from 'svelte-canvas';
     import { inventory } from './stores';
-    import { text } from '@sveltejs/kit';
 
     export let context: CanvasRenderingContext2D;
     export let item: Item;
-    
-    let x = 5;
-    let y = 5;
+
+    let x = item.offset;
+    let y = item.line * 16;
+
     let collected = false;
 
     function collect() {
@@ -26,7 +26,7 @@
 
     let render: Render;
     $: render = ({ context }) => {
-        context.font = '16px Times New Roman';
+        context.font = '16px EB Garamond';
         context.textAlign = 'left';
         context.textBaseline = 'top';
         context.fillStyle = 'black';
