@@ -1,12 +1,15 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import ShoreItem from "./ShoreItem.svelte";
+    import { inventory } from './stores';
 
     type ShoreItem = {
         item: Item,
         x: number,
         y: number,
+        x2: number,
+        y2: number,
         squashedText: string;
+        collected: boolean
     }
 
     const LINE_HEIGHT_PX = 16;
@@ -32,7 +35,11 @@
             ctx.textAlign = 'left';
             ctx.textBaseline = 'top';
             ctx.fillStyle = 'black';
+            let textMetrics = ctx.measureText(shoreItem.squashedText);
             ctx.fillText(shoreItem.squashedText, shoreItem.x, shoreItem.y);
+            shoreItem.x2 = shoreItem.x + textMetrics.actualBoundingBoxRight;
+            shoreItem.y2 = shoreItem.y + LINE_HEIGHT_PX;
+            console.log(shoreItem);
         });
     }
 
@@ -40,7 +47,10 @@
         item,
         x: Math.round(item.offset),
         y: item.line * LINE_HEIGHT_PX,
-        squashedText: item.text.replaceAll(" ", "")
+        x2: 0,
+        y2: 0,
+        squashedText: item.text.replaceAll(" ", ""),
+        collected: false
     }));
 
     onMount(() => {
@@ -50,6 +60,23 @@
             if (ctx != null) {
                 fixCanvasScaling(canvas, ctx);
                 renderText(ctx, shoreItems);
+
+                canvas.addEventListener("click", (e) => {
+                    let rect = canvas.getBoundingClientRect();
+                    let x = e.clientX - rect.left;
+                    let y = e.clientY - rect.top;
+                    let clickedItem = shoreItems.find(shoreItem => x > shoreItem.x && x < shoreItem.x2 && y > shoreItem.y && y < shoreItem.y2);
+                    if (clickedItem != null && clickedItem.collected == false) {
+                        clickedItem.collected = true;
+                        $inventory = [...$inventory, clickedItem.item];
+                        ctx.clearRect(
+                            clickedItem.x,
+                            clickedItem.y,
+                            clickedItem.x2 - clickedItem.x,
+                            clickedItem.y2 - clickedItem.y
+                        );
+                    }
+                })
             };
         };
     })
