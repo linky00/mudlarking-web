@@ -59,20 +59,26 @@
 
     onMount(() => {
         const canvas = <HTMLCanvasElement> document.querySelector(".shore");
-        if (canvas != null) {
-            const ctx = canvas.getContext("2d");
-            if (ctx != null) {
-                fixCanvasScaling(canvas, ctx);
-                renderText(ctx, shoreItems);
+        if (canvas == null) {
+            return
+        }
+        const ctx = canvas.getContext("2d");
+        if (ctx == null) {
+            return
+        }
+        fixCanvasScaling(canvas, ctx);
 
-                canvas.addEventListener("click", (e) => {
-                    let rect = canvas.getBoundingClientRect();
-                    let x = e.clientX - rect.left;
-                    let y = e.clientY - rect.top;
-                    let clickedItem = shoreItems.find(shoreItem => x > shoreItem.x && x < shoreItem.x2 && y > shoreItem.y && y < shoreItem.y2);
-                    if (clickedItem != null && clickedItem.collected == false) {
-                        clickedItem.collected = true;
-                        $inventory = [...$inventory, clickedItem.item];
+        window.onload = () => {
+            renderShore(canvas, ctx);
+
+            canvas.addEventListener("click", (e) => {
+                let rect = canvas.getBoundingClientRect();
+                let x = e.clientX - rect.left;
+                let y = e.clientY - rect.top;
+                let clickedItem = shoreItems.find(shoreItem => x > shoreItem.x && x < shoreItem.x2 && y > shoreItem.y && y < shoreItem.y2);
+                if (clickedItem != null && clickedItem.collected == false) {
+                    clickedItem.collected = true;
+                    $inventory = [...$inventory, clickedItem.item];
                     // could definitely be optimised
                     renderShore(canvas, ctx);
                 };
