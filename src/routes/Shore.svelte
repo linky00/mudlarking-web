@@ -16,6 +16,16 @@
 
     export let shore: Shore;
 
+    let shoreItems: ShoreItem[] = shore.contents.map(item => ({
+        item,
+        x: Math.round(item.offset),
+        y: item.line * LINE_HEIGHT_PX,
+        x2: 0,
+        y2: 0,
+        squashedText: item.text.replaceAll(" ", ""),
+        collected: false
+    }));
+
     function fixCanvasScaling(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
         const dpr = window.devicePixelRatio;
         const rect = canvas.getBoundingClientRect();
@@ -29,8 +39,12 @@
         canvas.style.height = `${rect.height}px`;
     }
 
-    function renderText(ctx: CanvasRenderingContext2D, shoreItems: ShoreItem[]) {
+    function renderShore(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         shoreItems.forEach(shoreItem => {
+            if (shoreItem.collected == true) {
+                return
+            }
             ctx.font = '16px EB Garamond';
             ctx.textAlign = 'left';
             ctx.textBaseline = 'top';
@@ -42,16 +56,6 @@
             console.log(shoreItem);
         });
     }
-
-    let shoreItems: ShoreItem[] = shore.contents.map(item => ({
-        item,
-        x: Math.round(item.offset),
-        y: item.line * LINE_HEIGHT_PX,
-        x2: 0,
-        y2: 0,
-        squashedText: item.text.replaceAll(" ", ""),
-        collected: false
-    }));
 
     onMount(() => {
         const canvas = <HTMLCanvasElement> document.querySelector(".shore");
@@ -69,18 +73,12 @@
                     if (clickedItem != null && clickedItem.collected == false) {
                         clickedItem.collected = true;
                         $inventory = [...$inventory, clickedItem.item];
-                        ctx.clearRect(
-                            clickedItem.x,
-                            clickedItem.y,
-                            clickedItem.x2 - clickedItem.x,
-                            clickedItem.y2 - clickedItem.y
-                        );
-                    }
-                })
-            };
+                    // could definitely be optimised
+                    renderShore(canvas, ctx);
+                };
+            });
         };
     })
-
 </script>
 
 <div class="shore-wrapper">
