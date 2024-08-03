@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { inventory } from './stores';
+    import { bag } from './stores';
 
     type ShoreItem = {
         item: Item,
@@ -78,7 +78,7 @@
                 let clickedItem = shoreItems.find(shoreItem => x > shoreItem.x && x < shoreItem.x2 && y > shoreItem.y && y < shoreItem.y2);
                 if (clickedItem != null && clickedItem.collected == false) {
                     clickedItem.collected = true;
-                    $inventory = [...$inventory, clickedItem.item];
+                    $bag = [...$bag, clickedItem.item];
                     // could definitely be optimised
                     renderShore(canvas, ctx);
                 };

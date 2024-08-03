@@ -1,13 +1,13 @@
 <script lang="ts">
-    import InventoryItem from "./InventoryItem.svelte";
-    import { inventory, poem } from "./stores";
+    import BagItem from "./BagItem.svelte";
+    import { bag, poem } from "./stores";
 </script>
 
 <div class="inventory">
     <p>{$poem + ($poem.split("\n").at(-1) == "" ? "..." : " ...")}</p>
     <ul>
-        {#each $inventory as item (item.id)}
-            <InventoryItem {item} />
+        {#each $bag as item (item.id)}
+            <BagItem {item} />
         {/each}
         <li><button on:click={() => $poem += ","}>(,)</button></li>
         <li><button on:click={() => $poem += "."}>(.)</button></li>

@@ -1,10 +1,10 @@
 <script lang="ts">
-    import { inventory, poem } from "./stores";
+    import { bag, poem } from "./stores";
 
     export let item: Item;
 
     function chosen() {
-        $inventory = $inventory.filter((testItem) => testItem.id != item.id);
+        $bag = $bag.filter((testItem) => testItem.id != item.id);
         $poem += $poem.split("\n").at(-1) == "" ? item.text : " " + item.text;
     }
 </script>
