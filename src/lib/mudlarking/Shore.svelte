@@ -14,17 +14,7 @@
 
     const LINE_HEIGHT_PX = 16;
 
-    export let shore: Shore;
-
-    let shoreItems: ShoreItem[] = shore.contents.map(item => ({
-        item,
-        x: Math.round(item.offset),
-        y: item.line * LINE_HEIGHT_PX,
-        x2: 0,
-        y2: 0,
-        squashedText: item.text.replaceAll(" ", ""),
-        collected: false
-    }));
+    let shoreItems: ShoreItem[]
 
     function fixCanvasScaling(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
         const dpr = window.devicePixelRatio;
@@ -57,7 +47,17 @@
         });
     }
 
-    onMount(() => {
+    export const init = (shoreData: ShoreData) => {
+        shoreItems = shoreData.contents.map(item => ({
+            item,
+            x: Math.round(item.offset),
+            y: item.line * LINE_HEIGHT_PX,
+            x2: 0,
+            y2: 0,
+            squashedText: item.text.replaceAll(" ", ""),
+            collected: false
+        }));
+
         const canvas = <HTMLCanvasElement> document.querySelector(".shore");
         if (canvas == null) {
             return
@@ -84,7 +84,7 @@
                 };
             });
         };
-    })
+    };
 </script>
 
 <div class="shore-wrapper">
