@@ -10,7 +10,7 @@ declare global {
 	}
 }
 
-interface Shore {
+interface ShoreData {
 	contents: Item[];
 }
 
