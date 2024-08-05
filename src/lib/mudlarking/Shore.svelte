@@ -25,7 +25,6 @@
     $: canvas = canvasComponent?.getCanvas();
 
     let clickHandler = (e: MouseEvent) => {
-        console.log("click");
         let rect = canvas.getBoundingClientRect();
         let x = e.clientX - rect.left;
         let y = e.clientY - rect.top;
