@@ -5,14 +5,14 @@
     export let writingPoem = false;
 
     function chosen() {
-        $selectedItems = [...$selectedItems, item.id];
+        $selectedItems = [...$selectedItems, item];
         $poem += $poem.split("\n").at(-1) == "" ? item.text : " " + item.text;
     }
     
 </script>
 
-{#if item.id in $selectedItems == false}
-    <button on:click={chosen} disabled={!writingPoem}>{item.text}</button>
+{#if !$selectedItems.includes(item)}
+    <li><button on:click={chosen} disabled={!writingPoem}>{item.text}</button></li>
 {/if}
 
 <style>
@@ -21,5 +21,9 @@
         padding: 0;
         background: none;
         border: none;
+    }
+
+    button:disabled {
+        color: inherit;
     }
 </style>

@@ -5,8 +5,16 @@
     export let writingPoem = false;
 </script>
 
-<ul>
-    {#each $inventory as item (item.id)}
-        <InventoryItem {item} {writingPoem} />
-    {/each}
-</ul>
+<div>
+    <ul>
+        {#each $inventory as item (item.id)}
+            <InventoryItem {item} {writingPoem} />
+        {/each}
+    </ul>
+</div>
+
+<style>
+    div {
+        overflow-y: auto;
+    }
+</style>

@@ -16,7 +16,7 @@
     }
 
     function cancelPoem() {
-        $inventory = $inventory.filter(item => !(item.id in $selectedItems));
+        $selectedItems = [];
         $poem = "";
         dispatch('done');
     }

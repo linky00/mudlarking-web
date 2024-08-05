@@ -2,6 +2,7 @@
     import { Canvas } from "svelte-canvas";
     import { bag } from './stores';
     import ShoreItem from "./ShoreItem.svelte";
+    import { MAX_BAG_ITEMS } from "./mudlarking";
 
     const LINE_HEIGHT_PX = 16;
 
@@ -24,6 +25,7 @@
     $: canvas = canvasComponent?.getCanvas();
 
     let clickHandler = (e: MouseEvent) => {
+        if ($bag.length >= MAX_BAG_ITEMS) { return }
         let rect = canvas.getBoundingClientRect();
         let x = e.clientX - rect.left;
         let y = e.clientY - rect.top;

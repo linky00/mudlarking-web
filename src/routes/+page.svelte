@@ -10,7 +10,7 @@
 </svelte:head>
 
 {#if mudlarking}
-<Mudlarking />
+<Mudlarking on:done={() => mudlarking = false} />
 {:else}
-<Home />
+<Home on:done={() => mudlarking = true} />
 {/if}

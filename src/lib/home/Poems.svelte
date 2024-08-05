@@ -3,7 +3,10 @@
 </script>
 
 <div>
-    {#each $poems.toReversed() as poem}
+    {#each $poems.toReversed() as poem, index}
+        {#if index != 0}
+        <p>*****</p>
+        {/if}
         <p>{poem}</p>
     {/each}
 </div>
@@ -15,5 +18,9 @@
         gap: 20px;
         overflow-y: auto;
         padding: 10px;
+    }
+
+    p {
+        white-space: pre-wrap;
     }
 </style>
