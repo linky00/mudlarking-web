@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { onMount } from "svelte";
     import { Canvas } from "svelte-canvas";
     import { bag } from './stores';
     import ShoreItem from "./ShoreItem.svelte";
