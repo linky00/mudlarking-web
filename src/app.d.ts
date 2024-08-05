@@ -20,3 +20,13 @@ interface Item {
 	offset: number;
 	id: string;
 }
+
+interface ShoreItemData {
+	item: Item,
+	x: number,
+	y: number,
+	x2: number,
+	y2: number,
+	squashedText: string;
+	collected: boolean
+}
