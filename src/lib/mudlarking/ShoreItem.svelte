@@ -1,8 +1,9 @@
 <script lang="ts">
-    import { Layer } from 'svelte-canvas';
+    import { Layer, type Render } from 'svelte-canvas';
 
     export let item: ShoreItemData;
 
+    let render: Render;
     $: render = ({ context: ctx }) => {
         if (item.collected == true) {
             return
