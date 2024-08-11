@@ -7,10 +7,9 @@
     const LINE_HEIGHT_PX = 16;
 
     export let shoreData: ShoreData;
+    export let viewDebug = false;
 
-    let shoreItems: ShoreItemData[] = [];
-
-    $: shoreItems = shoreData ? shoreData.contents.map(item => ({
+    const makeShoreItem = (item: Item) => ({
             item,
             x: Math.round(item.offset),
             y: item.line * LINE_HEIGHT_PX,
@@ -18,7 +17,13 @@
             y2: (item.line + 1) * LINE_HEIGHT_PX,
             squashedText: item.text.replaceAll(" ", ""),
             collected: false
-        })) : [];
+    });
+
+    let shoreItems: ShoreItemData[] = [];
+    let debugItems: ShoreItemData[] = [];
+
+    $: shoreItems = shoreData ? shoreData.contents.map(makeShoreItem) : [];
+    $: debugItems = (shoreData && shoreData.debugContents) ? shoreData.debugContents.map(makeShoreItem) : [];
 
     let canvasComponent: Canvas;
     let canvas: HTMLCanvasElement;
@@ -40,9 +45,15 @@
 
 <div class="shore-wrapper">
     <Canvas bind:this={canvasComponent} on:click={clickHandler} width={800} height={1200}>
-        {#each shoreItems as item}
-            <ShoreItem {item} />
-        {/each}
+        {#if viewDebug}
+            {#each debugItems as item}
+                <ShoreItem {item} renderDebug={true} />
+            {/each}
+        {:else}
+            {#each shoreItems as item}
+                <ShoreItem {item} />
+            {/each}
+        {/if}
     </Canvas>
 </div>
 

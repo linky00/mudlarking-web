@@ -12,6 +12,7 @@ declare global {
 
 interface ShoreData {
 	contents: Item[];
+	debugContents: Item[] | null;
 }
 
 interface Item {

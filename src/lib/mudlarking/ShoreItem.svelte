@@ -2,13 +2,14 @@
     import { Layer, type Render } from 'svelte-canvas';
 
     export let item: ShoreItemData;
+    export let renderDebug = false;
 
     let render: Render;
     $: render = ({ context: ctx }) => {
         if (item.collected == true) {
             return
         }
-        ctx.font = '16px EB Garamond';
+        ctx.font = renderDebug ? '11px EB Garamond' : '16px EB Garamond';
         ctx.textAlign = 'left';
         ctx.textBaseline = 'top';
         ctx.fillStyle = 'black';
